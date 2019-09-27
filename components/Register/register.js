@@ -5,6 +5,9 @@ import { db } from '../../firebase/config';
 
 import styles from './style';
 
+const DEFAULT_PIC =
+  'https://icon-library.net/images/profile-image-icon/profile-image-icon-25.jpg';
+
 const {
   container,
   inputField,
@@ -20,29 +23,46 @@ export default class RegistrationForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { username: '', password: '', usernameTaken: false };
+    this.state = {
+      username: '',
+      password: '',
+      usernameTaken: false,
+      emptyFields: false,
+    };
     this.handleFormInput = this.handleFormInput.bind(this);
   }
 
   handleFormInput() {
     const { username, password } = this.state;
-    db.ref('/users')
-      .child(username)
-      .once('value', snapshot => {
-        if (snapshot.exists()) {
-          this.setState({ usernameTaken: true });
-        } else {
-          db.ref(`/users/${username}`).set({
-            username,
-            password,
-          });
+    if (!username || !password) {
+      this.setState({ emptyFields: true });
+    } else {
+      db.ref('/users')
+        .child(username)
+        .once('value', snapshot => {
+          if (snapshot.exists()) {
+            this.setState({ usernameTaken: true });
+          } else {
+            let newUser = {
+              username,
+              password,
+              imgurl: DEFAULT_PIC,
+              phone: '',
+              email: '',
+              location: '',
+              bio: '',
+            };
 
-          let user = { username };
-          this.props.navigation.navigate('Profile', {
-            user,
-          });
-        }
-      });
+            db.ref(`/users/${username}`).set({
+              ...newUser,
+            });
+
+            this.props.navigation.navigate('Profile', {
+              user: newUser,
+            });
+          }
+        });
+    }
   }
 
   render() {
@@ -67,7 +87,10 @@ export default class RegistrationForm extends React.Component {
             />
           </View>
         </View>
-        <Text>{this.state.usernameTaken ? 'That handle is taken' : ''}</Text>
+        <Text>
+          {this.state.usernameTaken ? 'That handle is taken' : ''}
+          {this.state.emptyFields ? 'Fill out both name and password' : ''}
+        </Text>
         <Button title="Register" onPress={this.handleFormInput} />
       </View>
     );

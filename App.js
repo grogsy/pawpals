@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/no-multi-comp */
 import React from 'react';
-import { Text, View, TextInput, Button, Image } from 'react-native';
+import { Text, View, Image, ScrollView } from 'react-native';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -11,43 +11,6 @@ import { LoginScreen, Feed, Inbox, Profile, Register } from './components';
 import { db } from './firebase/config';
 import styles from './styles';
 const { container, description, inputField, button, inputAndButton } = styles;
-
-class Tutorial extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: '' };
-  }
-
-  render() {
-    return (
-      <View style={container}>
-        <Text style={description}>My App!</Text>
-        <View style={inputAndButton}>
-          <TextInput
-            style={inputField}
-            onChangeText={text => this.setState({ text })}
-            value={this.state.text}
-            placeholder="Type Something Here"
-          />
-          <Button
-            style={button}
-            onPress={() => {
-              alert(`You typed: ${this.state.text}`);
-            }}
-            title="Basic Button"
-          />
-        </View>
-        <Button
-          style={button}
-          onPress={() => {
-            this.props.navigation.navigate('Home');
-          }}
-          title="Go to the 'Home' Screen..."
-        />
-      </View>
-    );
-  }
-}
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -60,7 +23,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    db.ref('/users').on('value', snapshot => {
+    db.ref('/users').once('value', snapshot => {
       if (snapshot.exists()) {
         let data = snapshot.val();
         let items = Object.values(data);
@@ -68,7 +31,7 @@ class HomeScreen extends React.Component {
       }
     });
 
-    db.ref('/dogs').on('value', snapshot => {
+    db.ref('/dogs').once('value', snapshot => {
       let data = snapshot.val();
       let dogs = Object.values(data); // array
       console.log(dogs);
@@ -78,47 +41,54 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={container}>
-        <Text>Questionable Component Now</Text>
-        {this.state.items.map(item => {
-          return <Text key={item.username}>{item.username}</Text>;
-        })}
-        {this.state.dogs.map(dog => {
-          return (
-            <View key={dog.name}>
-              <Image
-                source={{ uri: dog.imgurl }}
-                style={{ width: 200, height: 200 }}
-              />
-              <Text>
-                Name: {dog.name}, Age: {dog.age}, Area: {dog.location}{' '}
-              </Text>
-              <Text>Breed: {dog.breed}</Text>
-            </View>
-          );
-        })}
+      <View style={{ backgroundColor: 'black' }}>
+        <ScrollView>
+          {this.state.items.map(item => {
+            return <Text key={item.username}>{item.username}</Text>;
+          })}
+          {this.state.dogs.map(dog => {
+            return (
+              <View style={container} key={dog.name}>
+                <Image
+                  source={{ uri: dog.imgurl }}
+                  style={{ width: 200, height: 200 }}
+                />
+                <Text>
+                  Name: {dog.name}, Age: {dog.age}
+                </Text>
+                <Text>Area: {dog.location}</Text>
+                <Text>Breed: {dog.breed}</Text>
+                <Text>Personality: {dog.personality}</Text>
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
     );
   }
 }
 
-const AuthStack = createStackNavigator({
-  Login: { screen: LoginScreen },
-  Register: { screen: Register },
+const TabNavigator = createBottomTabNavigator({
+  All: { screen: Feed },
+  Inbox: { screen: Inbox },
+  Profile: { screen: Profile },
+  Home: { screen: HomeScreen },
 });
 
-const TabNavigator = createBottomTabNavigator(
+const AuthStack = createStackNavigator(
   {
-    Login: AuthStack,
-    All: { screen: Feed },
-    Inbox: { screen: Inbox },
-    Profile: { screen: Profile },
-    Home: { screen: HomeScreen },
+    Login: { screen: LoginScreen },
+    Register: { screen: Register },
+    Tabs: {
+      screen: TabNavigator,
+    },
   },
-  { initialRouteName: 'Login' } // signedIn ? 'All' : 'Login'
+  {
+    initialRouteName: 'Login',
+  }
 );
 
-const AppContainer = createAppContainer(TabNavigator);
+const AppContainer = createAppContainer(AuthStack);
 
 export default class App extends React.Component {
   render() {

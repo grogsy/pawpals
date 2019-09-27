@@ -1,24 +1,25 @@
 import React from 'react';
-import { Text, View, TextInput, Button } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 
 export default class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { user: {} };
-  }
-
   componentDidMount() {
     this.setState({
       user: this.props.navigation.getParam('user', 'something wrong'),
     });
   }
   render() {
+    console.log(this.props.navigation.state.params);
+    const { user } = this.props.navigation.state.params;
     return (
       <View>
         <Text style={{ fontSize: 30, textAlign: 'center', marginTop: 65 }}>
           User Profile Page Here
         </Text>
-        <Text>{this.state.user.username}</Text>
+        <Text>{user.username}</Text>
+        <Image
+          source={{ uri: user.imgurl }}
+          style={{ width: 100, height: 100 }}
+        />
       </View>
     );
   }

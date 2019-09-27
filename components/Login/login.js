@@ -19,29 +19,37 @@ export default class LoginScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { username: '', password: '', invalidCred: false };
+    this.state = {
+      username: '',
+      password: '',
+      invalidCred: false,
+      emptyField: false,
+    };
     this.handleFormInput = this.handleFormInput.bind(this);
   }
 
   handleFormInput() {
     const { username, password } = this.state;
-    db.ref('/users/')
-      .child(username)
-      .once('value', snapshot => {
-        if (!snapshot.exists()) {
-          this.setState({ invalidCred: true });
-        } else {
-          let user = snapshot.val();
-          if (password !== user.password) {
+    if (!username || !password) {
+      this.setState({ emptyField: true });
+    } else {
+      db.ref('/users')
+        .child(username)
+        .once('value', snapshot => {
+          if (!snapshot.exists()) {
             this.setState({ invalidCred: true });
           } else {
-            this.props.navigation.navigate('Profile', {
-              user,
-              navigation: this.props.navigation,
-            });
+            let user = snapshot.val();
+            if (password !== user.password) {
+              this.setState({ invalidCred: true });
+            } else {
+              this.props.navigation.navigate('Profile', {
+                user,
+              });
+            }
           }
-        }
-      });
+        });
+    }
   }
 
   render() {
@@ -68,6 +76,7 @@ export default class LoginScreen extends React.Component {
         </View>
         <Text style={description}>
           {this.state.invalidCred ? 'Incorrect Username Or Password' : ''}
+          {this.state.emptyField ? 'Form Fields Empty' : ''}
         </Text>
 
         <Button title="Sign In" onPress={this.handleFormInput} />
@@ -75,9 +84,7 @@ export default class LoginScreen extends React.Component {
         <Button
           title="Register"
           onPress={() => {
-            this.props.navigation.navigate('Register', {
-              navigation: this.props.navigation,
-            });
+            this.props.navigation.navigate('Register');
           }}
         />
       </View>
