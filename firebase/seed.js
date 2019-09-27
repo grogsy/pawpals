@@ -22,5 +22,5 @@ const dogs = [
 ];
 
 dogs.forEach(dog => {
-  db.ref('/dogs').push({ ...dog });
+  db.ref(`/dogs/${dog.name}`).set({ ...dog });
 });

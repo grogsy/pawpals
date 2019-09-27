@@ -25,20 +25,24 @@ export default class RegistrationForm extends React.Component {
   }
 
   handleFormInput() {
-    db.ref('/users').once('value', snapshot => {
-      if (snapshot.exists()) {
-        this.setState({ usernameTaken: true });
-      } else {
-        db.ref('/users').push({
-          username: this.state.username,
-          password: this.state.password,
-        });
+    const { username, password } = this.state;
+    db.ref('/users')
+      .child(username)
+      .once('value', snapshot => {
+        if (snapshot.exists()) {
+          this.setState({ usernameTaken: true });
+        } else {
+          db.ref(`/users/${username}`).set({
+            username,
+            password,
+          });
 
-        this.props.navigation.navigate('Profile', {
-          user: { username: this.state.username },
-        });
-      }
-    });
+          let user = { username };
+          this.props.navigation.navigate('Profile', {
+            user,
+          });
+        }
+      });
   }
 
   render() {

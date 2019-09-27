@@ -24,20 +24,24 @@ export default class LoginScreen extends React.Component {
   }
 
   handleFormInput() {
-    db.ref('/users/').once('value', snapshot => {
-      let data = snapshot.val();
-      let user = Object.values(data).find(
-        u => u.username === this.state.username
-      );
-      if (this.state.password !== user.password) {
-        this.setState({ invalidCred: true });
-      } else {
-        this.props.navigation.navigate('Profile', {
-          user,
-          navigation: this.props.navigation,
-        });
-      }
-    });
+    const { username, password } = this.state;
+    db.ref('/users/')
+      .child(username)
+      .once('value', snapshot => {
+        if (!snapshot.exists()) {
+          this.setState({ invalidCred: true });
+        } else {
+          let user = snapshot.val();
+          if (password !== user.password) {
+            this.setState({ invalidCred: true });
+          } else {
+            this.props.navigation.navigate('Profile', {
+              user,
+              navigation: this.props.navigation,
+            });
+          }
+        }
+      });
   }
 
   render() {
