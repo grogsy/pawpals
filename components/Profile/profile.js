@@ -7,8 +7,13 @@ import styles from './styles';
 const { header, text } = styles;
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { user: this.props.navigation.getParam('user') };
+  }
   render() {
-    const user = this.props.navigation.getParam('user');
+    const { user } = this.state;
+    console.log(user);
     return (
       <View
         style={{

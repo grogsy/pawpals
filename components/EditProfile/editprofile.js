@@ -15,65 +15,65 @@ export default class EditProfile extends React.Component {
     const { user } = this.props.navigation.state.params;
     this.state = { ...user };
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    this.handleFieldChange = this.handleFieldChange.bind(this);
     this.getFieldValue = this.getFieldValue.bind(this);
-  }
-
-  handleFieldChange(fieldType) {
-    this.setState({ fieldType });
   }
 
   getFieldValue(fieldType) {
     return this.state[fieldType];
   }
 
-  handleOnSubmit() {}
+  handleOnSubmit() {
+    db.ref(`/users/${this.state.username}`).update({ ...this.state });
+    this.props.navigation.navigate('Profile', {
+      user: { ...this.state },
+    });
+  }
 
   render() {
     return (
       <ScrollView>
-        <View>
-          <Text style={{ header }}>Display Picture</Text>
+        <View style={{ marginTop: 30, marginLeft: 30 }}>
+          <Text style={header}>Display Picture</Text>
           <TextInput
-            style={{ inputField }}
-            onChangeText={() => this.handleFieldChange('imgurl')}
+            style={inputField}
+            onChangeText={imgurl => this.setState({ imgurl })}
             value={this.getFieldValue('imgurl')}
           />
-          <Text style={{ header }}>First Name</Text>
+          <Text style={header}>First Name</Text>
           <TextInput
-            style={{ inputField }}
-            onChangeText={() => this.handleFieldChange('firstname')}
+            style={inputField}
+            onChangeText={firstname => this.setState({ firstname })}
             value={this.getFieldValue('firstname')}
           />
-          <Text style={{ header }}>Last Name</Text>
+          <Text style={header}>Last Name</Text>
           <TextInput
-            style={{ inputField }}
-            onChangeText={() => this.handleFieldChange('lastname')}
+            style={inputField}
+            onChangeText={lastname => this.setState({ lastname })}
             value={this.getFieldValue('lastname')}
           />
-          <Text style={{ header }}>Location</Text>
+          <Text style={header}>Location</Text>
           <TextInput
-            style={{ inputField }}
-            onChangeText={() => this.handleFieldChange('location')}
+            style={inputField}
+            onChangeText={location => this.setState({ location })}
             value={this.getFieldValue('location')}
           />
-          <Text style={{ header }}>Phone #</Text>
+          <Text style={header}>Phone #</Text>
           <TextInput
-            style={{ inputField }}
-            onChangeText={() => this.handleFieldChange('phone')}
+            style={inputField}
+            onChangeText={phone => this.setState({ phone })}
             value={this.getFieldValue('phone')}
           />
-          <Text style={{ header }}>Email</Text>
+          <Text style={header}>Email</Text>
           <TextInput
-            style={{ inputField }}
-            onChangeText={() => this.handleFieldChange('email')}
+            style={inputField}
+            onChangeText={email => this.setState({ email })}
             value={this.getFieldValue('email')}
           />
-          <Text style={{ header }}>Bio</Text>
+          <Text style={header}>Bio</Text>
           <TextInput
-            style={{ inputField }}
+            style={inputField}
             multiline={true}
-            onChangeText={() => this.handleFieldChange('bio')}
+            onChangeText={bio => this.setState({ bio })}
             value={this.getFieldValue('bio')}
           />
           <Button title="Save Your Changes" onPress={this.handleOnSubmit} />

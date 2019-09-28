@@ -104,7 +104,7 @@ const AuthStack = createStackNavigator(
 const RootStack = createSwitchNavigator({
   Auth: { screen: AuthStack },
   App: TabNavigator,
-  Profile: { screen: ProfileStack },
+  EditProfile: { screen: EditProfile },
 });
 
 const AppContainer = createAppContainer(RootStack);
