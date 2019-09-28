@@ -46,6 +46,8 @@ export default class RegistrationForm extends React.Component {
             let newUser = {
               username,
               password,
+              firstname: '',
+              lastname: '',
               imgurl: DEFAULT_PIC,
               phone: '',
               email: '',

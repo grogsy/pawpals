@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 
   formField: {
     flexDirection: 'column',
+    marginRight: 75,
   },
 
   inputFieldAndDescription: {
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    marginTop: 10,
+    marginTop: 15,
     color: '#656565',
   },
 });

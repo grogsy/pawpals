@@ -5,8 +5,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
   },
-  text: {
-    marginTop: 10,
+  inputField: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: 200,
   },
 });
 

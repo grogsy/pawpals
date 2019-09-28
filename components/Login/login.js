@@ -79,14 +79,16 @@ export default class LoginScreen extends React.Component {
           {this.state.emptyField ? 'Form Fields Empty' : ''}
         </Text>
 
-        <Button title="Sign In" onPress={this.handleFormInput} />
-        <Text style={description}>Or</Text>
-        <Button
-          title="Register"
-          onPress={() => {
-            this.props.navigation.navigate('Register');
-          }}
-        />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Button title="Sign In" onPress={this.handleFormInput} />
+          <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Or</Text>
+          <Button
+            title="Register"
+            onPress={() => {
+              this.props.navigation.navigate('Register');
+            }}
+          />
+        </View>
       </View>
     );
   }

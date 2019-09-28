@@ -74,6 +74,33 @@ const dogs = [
     age: '3 Months',
     personality: 'energetic',
   },
+  {
+    name: 'Ivan',
+    location: 'Manhattan',
+    imgurl:
+      'https://scontent.fewr1-3.fna.fbcdn.net/v/t1.15752-9/s2048x2048/70799403_2278910162348465_3739772468672331776_n.jpg?_nc_cat=101&_nc_oc=AQndP7BhJtx1fISnGd6FlOxQ1Gxr0G8NtthZC9Cxyk3RjpBK_YiuM1WzKIsJLSrRiE0&_nc_ht=scontent.fewr1-3.fna&oh=fbb4c2a4a5122b352d685764098ef34b&oe=5E3ADB4B',
+    breed: 'Staffordshire Terrier',
+    age: '4',
+    personality: 'protective',
+  },
+  {
+    name: 'Maxine',
+    location: 'Bayonne',
+    imgurl:
+      'https://scontent.fewr1-3.fna.fbcdn.net/v/t1.15752-9/s2048x2048/71722837_446769925930757_8895795336455389184_n.jpg?_nc_cat=103&_nc_oc=AQlAy-4axXfRjRn-2Gh3raVNxbh9azNVEeHM2MrJeIfzQeVw-QhEyJQs38OooHUXkCM&_nc_ht=scontent.fewr1-3.fna&oh=d2db9cd87202e5026490e20c15abb382&oe=5E39385D',
+    breed: 'Rhodesian Ridgeback',
+    age: '8',
+    personality: 'clingy',
+  },
+  {
+    name: 'Finn',
+    location: 'Jersey City',
+    imgurl:
+      'https://scontent.fewr1-1.fna.fbcdn.net/v/t1.15752-9/s2048x2048/49384935_438809393491230_4857443995564900352_n.jpg?_nc_cat=108&_nc_oc=AQklzTdyd9iKVFNzqwz-Ho6fxObwprZNlNeaqpp1Y5pEtrLgHQueEYubhQAde0dDKaI&_nc_ht=scontent.fewr1-1.fna&oh=a108c4e8962a76e12abda58c8fda88c9&oe=5E38D72A',
+    breed: 'Chihuahua',
+    age: '7',
+    personality: 'grouchy',
+  },
 ];
 
 dogs.forEach(dog => {

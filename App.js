@@ -3,14 +3,23 @@
 import React from 'react';
 import { Text, View, Image, ScrollView } from 'react-native';
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import { LoginScreen, Feed, Inbox, Profile, Register } from './components';
+import {
+  LoginScreen,
+  Feed,
+  Inbox,
+  Profile,
+  Register,
+  EditProfile,
+} from './components';
+
 import { db } from './firebase/config';
+
 import styles from './styles';
-const { container, description, inputField, button, inputAndButton } = styles;
+const { container } = styles;
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -34,7 +43,6 @@ class HomeScreen extends React.Component {
     db.ref('/dogs').once('value', snapshot => {
       let data = snapshot.val();
       let dogs = Object.values(data); // array
-      console.log(dogs);
       this.setState({ dogs });
     });
   }
@@ -67,6 +75,10 @@ class HomeScreen extends React.Component {
     );
   }
 }
+const ProfileStack = createStackNavigator({
+  Profile: { screen: Profile },
+  EditProfile: { screen: EditProfile },
+});
 
 const TabNavigator = createBottomTabNavigator({
   All: { screen: Feed },
@@ -85,10 +97,17 @@ const AuthStack = createStackNavigator(
   },
   {
     initialRouteName: 'Login',
+    headerMode: 'none',
   }
 );
 
-const AppContainer = createAppContainer(AuthStack);
+const RootStack = createSwitchNavigator({
+  Auth: { screen: AuthStack },
+  App: TabNavigator,
+  Profile: { screen: ProfileStack },
+});
+
+const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component {
   render() {
