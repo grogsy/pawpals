@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, View, TextInput, Button } from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { db } from '../../firebase/config';
 
 import styles from './styles';
@@ -54,7 +60,7 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
-      <View style={container}>
+      <KeyboardAvoidingView style={container} behavior="padding">
         <View style={formField}>
           <View style={inputFieldAndDescription}>
             <Text style={description}>Username</Text>
@@ -89,7 +95,7 @@ export default class LoginScreen extends React.Component {
             }}
           />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

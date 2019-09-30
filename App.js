@@ -14,6 +14,7 @@ import {
   Profile,
   Register,
   EditProfile,
+  SwipePage,
 } from './components';
 
 import { db } from './firebase/config';
@@ -59,7 +60,7 @@ class HomeScreen extends React.Component {
               <View style={container} key={dog.name}>
                 <Image
                   source={{ uri: dog.imgurl }}
-                  style={{ width: 200, height: 200 }}
+                  style={{ width: 200, height: 200, borderRadius: 40 }}
                 />
                 <Text>
                   Name: {dog.name}, Age: {dog.age}
@@ -75,16 +76,12 @@ class HomeScreen extends React.Component {
     );
   }
 }
-const ProfileStack = createStackNavigator({
-  Profile: { screen: Profile },
-  EditProfile: { screen: EditProfile },
-});
 
 const TabNavigator = createBottomTabNavigator({
   All: { screen: Feed },
   Inbox: { screen: Inbox },
   Profile: { screen: Profile },
-  Home: { screen: HomeScreen },
+  Swipe: { screen: SwipePage, navigationOptions: { tabBarLabel: 'Find Dogs' } },
 });
 
 const AuthStack = createStackNavigator(

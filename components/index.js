@@ -4,3 +4,4 @@ export { default as Inbox } from './Inbox';
 export { default as Profile } from './Profile';
 export { default as Register } from './Register';
 export { default as EditProfile } from './EditProfile';
+export { default as SwipePage } from './Swipe';
