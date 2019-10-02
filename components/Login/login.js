@@ -87,7 +87,7 @@ export default class LoginScreen extends React.Component {
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Button title="Sign In" onPress={this.handleFormInput} />
-          <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Or</Text>
+          <Text style={{ fontWeight: 'bold', marginTop: 10, marginLeft: 20, marginRight: 20 }}>Or</Text>
           <Button
             title="Register"
             onPress={() => {

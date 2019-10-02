@@ -1,21 +1,25 @@
 import React from 'react';
+import { View } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
+
+import { sliderWidth } from './styles';
 
 import { db } from '../../firebase/config';
 import Slide from './SlideCard';
-import CarouselContainer from './CarouselContainer';
+import LoadingScreen from '../Loading';
 
 export default class SwipePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { dogs: [] };
+    this.state = { dogs: [], loading: true };
   }
 
   componentDidMount() {
-    console.log('ComponentDidMount called on SwipePage');
     db.ref('/dogs').once('value', snapshot => {
       let dogs = Object.values(snapshot.val());
 
       this.setState({ dogs });
+      this.setState({ loading: false });
     });
   }
 
@@ -24,35 +28,45 @@ export default class SwipePage extends React.Component {
   }
 
   render() {
+    const { dogs } = this.state;
+    console.log(this.state.loading);
     return (
-      <CarouselContainer
-        dogs={this.state.dogs}
-        renderItem={this.renderItem}
-        ref={c => (this._sliderRef = c)}
-      />
-      //   <View style={{ backgroundColor: 'black' }}>
-      //     <ScrollView pagingEnabled={true} horizantal={true}>
-      //       {this.state.dogs.map(dog => {
-      //         return (
-      //   <View
-      //     style={(container, { backgroundColor: 'black' })}
-      //     key={dog.name}
-      //   >
-      //     <Image
-      //       source={{ uri: dog.imgurl }}
-      //       style={{ width: 200, height: 200, borderRadius: 40 }}
+      // <View>
+      //   {this.state.loading ? (
+      //     <LoadingScreen />
+      //   ) : (
+      //     <Carousel
+      //       ref={c => {
+      //         this._carousel = c;
+      //       }}
+      //       layout={'default'}
+      //       data={dogs}
+      //       renderItem={this.renderItem}
+      //       itemWidth={sliderWidth}
+      //       sliderWidth={sliderWidth}
+      //       slideStyle={{ width: sliderWidth }}
+      //       removeClippedSubviews={false}
+      //       enableMomentum={true}
+      //       decelerationRate={0.9}
+      //       loop={true}
       //     />
-      //     <Text>
-      //       Name: {dog.name}, Age: {dog.age}
-      //     </Text>
-      //     <Text>Area: {dog.location}</Text>
-      //     <Text>Breed: {dog.breed}</Text>
-      //     <Text>Personality: {dog.personality}</Text>
-      //   </View>
-      //         );
-      //       })}
-      //     </ScrollView>
-      //   </View>
+      //   )}
+      // </View>
+      <Carousel
+        ref={c => {
+          this._carousel = c;
+        }}
+        layout={'default'}
+        data={dogs}
+        renderItem={this.renderItem}
+        itemWidth={sliderWidth}
+        sliderWidth={sliderWidth}
+        slideStyle={{ width: sliderWidth }}
+        removeClippedSubviews={true}
+        enableMomentum={true}
+        decelerationRate={0.9}
+        loop={true}
+      />
     );
   }
 }

@@ -8,7 +8,6 @@ const CarouselContainer = props => {
   return (
     <Carousel
       layout={'default'}
-      ref={ref}
       data={dogs}
       renderItem={renderItem}
       itemWidth={sliderWidth}
