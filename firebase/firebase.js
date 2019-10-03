@@ -18,7 +18,7 @@ export class FirebaseWrapper {
   }
 
   static GetInstance() {
-    if (null === this._firebaseWrapperInstance) {
+    if (null == this._firebaseWrapperInstance) {
       this._firebaseWrapperInstance = new FirebaseWrapper();
     }
 

@@ -30,6 +30,25 @@ export default class SwipePage extends React.Component {
   render() {
     const { dogs } = this.state;
     console.log(this.state.loading);
+    return this.state.loading ? (
+      <LoadingScreen />
+    ) : (
+      <Carousel
+        ref={c => {
+          this._carousel = c;
+        }}
+        layout={'default'}
+        data={dogs}
+        renderItem={this.renderItem}
+        itemWidth={sliderWidth}
+        sliderWidth={sliderWidth}
+        slideStyle={{ width: sliderWidth }}
+        removeClippedSubviews={true}
+        enableMomentum={true}
+        decelerationRate={0.9}
+        loop={true}
+      />
+    );
     return (
       // <View>
       //   {this.state.loading ? (
