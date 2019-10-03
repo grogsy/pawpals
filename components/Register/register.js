@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, View, TextInput, Button, Picker } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  Picker,
+  KeyboardAvoidingView
+} from "react-native";
 
 import { db } from "../../firebase/config";
 
@@ -71,7 +78,10 @@ export default class RegistrationForm extends React.Component {
 
   render() {
     return (
-      <View style={container}>
+      <KeyboardAvoidingView style={container} behavior="padding">
+        <Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: 50 }}>
+          Register
+        </Text>
         <View style={formField}>
           <View style={inputFieldAndDescription}>
             <Text style={description}>Username</Text>
@@ -109,7 +119,15 @@ export default class RegistrationForm extends React.Component {
           {this.state.emptyFields ? "Fill out both name and password" : ""}
         </Text>
         <Button title="Register" onPress={this.handleFormInput} />
-      </View>
+        <View style={{ marginTop: 20 }}>
+          <Button
+            title="Go Back"
+            onPress={() => {
+              this.props.navigation.navigate("Login");
+            }}
+          />
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }

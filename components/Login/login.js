@@ -1,35 +1,35 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   View,
   TextInput,
   Button,
-  KeyboardAvoidingView,
-} from 'react-native';
-import { db } from '../../firebase/config';
+  KeyboardAvoidingView
+} from "react-native";
+import { db } from "../../firebase/config";
 
-import styles from './styles';
+import styles from "./styles";
 
 const {
   container,
   inputField,
   formField,
   inputFieldAndDescription,
-  description,
+  description
 } = styles;
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
-    title: 'Sign In',
+    title: "Sign In"
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       invalidCred: false,
-      emptyField: false,
+      emptyField: false
     };
     this.handleFormInput = this.handleFormInput.bind(this);
   }
@@ -39,9 +39,9 @@ export default class LoginScreen extends React.Component {
     if (!username || !password) {
       this.setState({ emptyField: true });
     } else {
-      db.ref('/users')
+      db.ref("/users")
         .child(username)
-        .once('value', snapshot => {
+        .once("value", snapshot => {
           if (!snapshot.exists()) {
             this.setState({ invalidCred: true });
           } else {
@@ -49,8 +49,8 @@ export default class LoginScreen extends React.Component {
             if (password !== user.password) {
               this.setState({ invalidCred: true });
             } else {
-              this.props.navigation.navigate('Profile', {
-                user,
+              this.props.navigation.navigate("Profile", {
+                user
               });
             }
           }
@@ -61,6 +61,9 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={container} behavior="padding">
+        <Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: 50 }}>
+          Sign In
+        </Text>
         <View style={formField}>
           <View style={inputFieldAndDescription}>
             <Text style={description}>Username</Text>
@@ -81,17 +84,26 @@ export default class LoginScreen extends React.Component {
           </View>
         </View>
         <Text style={description}>
-          {this.state.invalidCred ? 'Incorrect Username Or Password' : ''}
-          {this.state.emptyField ? 'Form Fields Empty' : ''}
+          {this.state.invalidCred ? "Incorrect Username Or Password" : ""}
+          {this.state.emptyField ? "Form Fields Empty" : ""}
         </Text>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Button title="Sign In" onPress={this.handleFormInput} />
-          <Text style={{ fontWeight: 'bold', marginTop: 10, marginLeft: 20, marginRight: 20 }}>Or</Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              marginTop: 10,
+              marginLeft: 20,
+              marginRight: 20
+            }}
+          >
+            Or
+          </Text>
           <Button
             title="Register"
             onPress={() => {
-              this.props.navigation.navigate('Register');
+              this.props.navigation.navigate("Register");
             }}
           />
         </View>
