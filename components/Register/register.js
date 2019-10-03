@@ -114,7 +114,7 @@ export default class RegistrationForm extends React.Component {
             <Picker.Item label="Putting Up An Adoption" value="provider" />
           </Picker>
         </View>
-        <Text>
+        <Text style={{ color: "red" }}>
           {this.state.usernameTaken ? "That handle is taken" : ""}
           {this.state.emptyFields ? "Fill out both name and password" : ""}
         </Text>

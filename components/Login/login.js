@@ -1,22 +1,12 @@
 import React from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  KeyboardAvoidingView
-} from "react-native";
+import { Text, View, Button, KeyboardAvoidingView } from "react-native";
+
 import { db } from "../../firebase/config";
+import InputField from "./inputfield";
 
 import styles from "./styles";
 
-const {
-  container,
-  inputField,
-  formField,
-  inputFieldAndDescription,
-  description
-} = styles;
+const { container, formField, description } = styles;
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -65,25 +55,18 @@ export default class LoginScreen extends React.Component {
           Sign In
         </Text>
         <View style={formField}>
-          <View style={inputFieldAndDescription}>
-            <Text style={description}>Username</Text>
-            <TextInput
-              style={inputField}
-              onChangeText={username => this.setState({ username })}
-              value={this.state.username}
-            />
-          </View>
-          <View style={inputFieldAndDescription}>
-            <Text style={[description, { marginRight: 25 }]}>Password</Text>
-            <TextInput
-              style={inputField}
-              secureTextEntry={true}
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-          </View>
+          <InputField
+            headerText="Username"
+            onChangeEffect={username => this.setState({ username })}
+            inputValue={this.state.username}
+          />
+          <InputField
+            headerText="Password"
+            onChangeEffect={password => this.setState({ password })}
+            inputValue={this.state.password}
+          />
         </View>
-        <Text style={description}>
+        <Text style={[description, { color: "red", marginBottom: 10 }]}>
           {this.state.invalidCred ? "Incorrect Username Or Password" : ""}
           {this.state.emptyField ? "Form Fields Empty" : ""}
         </Text>
