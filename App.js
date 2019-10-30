@@ -1,13 +1,13 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/no-multi-comp */
-import React from 'react';
+import React from "react";
 
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import { FirebaseWrapper } from './firebase/firebase';
-import { firebaseConfig } from './firebase/config';
+import { FirebaseWrapper } from "./firebase/firebase";
+import { firebaseConfig } from "./firebase/config";
 
 import {
   LoginScreen,
@@ -16,34 +16,45 @@ import {
   Profile,
   Register,
   EditProfile,
-  SwipePage,
-} from './components';
+  SwipePage
+} from "./components";
 
-const TabNavigator = createBottomTabNavigator({
-  All: { screen: Feed },
-  Inbox: { screen: Inbox },
-  Profile: { screen: Profile },
-  Swipe: { screen: SwipePage, navigationOptions: { tabBarLabel: 'Find Dogs' } },
-});
+const TabNavigator = createBottomTabNavigator(
+  {
+    All: { screen: Feed },
+    Inbox: { screen: Inbox },
+    Profile: { screen: Profile },
+    Swipe: {
+      screen: SwipePage,
+      navigationOptions: { tabBarLabel: "Find Dogs" }
+    }
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: "green",
+      inactiveTintColor: "gray"
+    }
+  }
+);
 
 const AuthStack = createStackNavigator(
   {
     Login: { screen: LoginScreen },
     Register: { screen: Register },
     Tabs: {
-      screen: TabNavigator,
-    },
+      screen: TabNavigator
+    }
   },
   {
-    initialRouteName: 'Login',
-    headerMode: 'none',
+    initialRouteName: "Login",
+    headerMode: "none"
   }
 );
 
 const RootStack = createSwitchNavigator({
   Auth: { screen: AuthStack },
   App: TabNavigator,
-  EditProfile: { screen: EditProfile },
+  EditProfile: { screen: EditProfile }
 });
 
 const AppContainer = createAppContainer(RootStack);
