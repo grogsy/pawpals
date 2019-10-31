@@ -12,13 +12,19 @@ const Swipe = ({ cards }) => {
   const handleOnSwipedLeft = () => useSwiper.swipeLeft();
   const handleOnSwipedTop = () => useSwiper.swipeTop();
   const handleOnSwipedRight = () => useSwiper.swipeRight();
-  console;
   return (
     <View style={styles.container}>
       <View style={styles.swiperContainer}>
         <Swiper
           ref={useSwiper}
           animateCardOpcaity
+          verticalSwipe={false}
+          onSwipedLeft={() => {
+            alert("You Swiped Left!");
+          }}
+          onSwipedRight={() => {
+            alert("You Swiped Right!");
+          }}
           containerStyle={styles.container}
           cards={cards}
           renderCard={card => <Card card={card} />}
@@ -54,19 +60,25 @@ const Swipe = ({ cards }) => {
       <View style={styles.buttonsContainer}>
         <IconButton
           name="close"
-          onPress={handleOnSwipedLeft}
+          onPress={() => {
+            alert("You clicked hate :(");
+          }}
           color="white"
           backgroundColor="#E5566D"
         />
         <IconButton
           name="star"
-          onPress={handleOnSwipedTop}
+          onPress={() => {
+            alert("You clicked star!");
+          }}
           color="white"
           backgroundColor="#3CA3FF"
         />
         <IconButton
           name="heart"
-          onPress={handleOnSwipedRight}
+          onPress={() => {
+            alert("You clicked Like! <3");
+          }}
           color="white"
           backgroundColor="#4CCC93"
         />
@@ -79,7 +91,8 @@ const { height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "#323232"
   },
   swiperContainer: {
     height: height - 250
@@ -88,7 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: "15%"
+    paddingHorizontal: "15%",
+    paddingBottom: 5
   },
   copyright: {
     textAlign: "center",

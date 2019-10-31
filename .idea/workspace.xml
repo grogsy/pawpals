@@ -4,7 +4,8 @@
     <list default="true" id="223db9cb-78c5-47d4-bef5-14246c92db03" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Profile/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Profile/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Swipe/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Swipe/Card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Swipe/Swiper.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Swipe/Swiper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Swipe/swipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Swipe/swipe.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +29,8 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
