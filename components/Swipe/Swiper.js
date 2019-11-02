@@ -1,26 +1,26 @@
-import React, { useRef } from 'react';
-import { View, ToastAndroid, StyleSheet, Dimensions } from 'react-native';
-import Swiper from 'react-native-deck-swiper';
-import Card from './Card';
-import IconButton from './CardButton';
-import Overlay from './Overlay';
-import { Platform } from '@unimodules/core';
+import React, { useRef } from "react";
+import { View, ToastAndroid, StyleSheet, Dimensions } from "react-native";
+import Swiper from "react-native-deck-swiper";
+import Card from "./Card";
+import IconButton from "./CardButton";
+import Overlay from "./Overlay";
+import { Platform } from "@unimodules/core";
 
 const Swipe = ({ cards }) => {
   const useSwiper = useRef(null).current;
-  const handleOnSwipedLeft = () => useSwiper.swipeLeft();
-  const handleOnSwipedTop = () => useSwiper.swipeTop();
-  const handleOnSwipedRight = () => useSwiper.swipeRight();
   return (
     <View style={styles.container}>
       <View style={styles.swiperContainer}>
         <Swiper
           ref={useSwiper}
-          animateCardOpcaity
+          animateCardOpcaity={true}
           verticalSwipe={false}
+          onSwipedAll={() => {
+            alert("Guess that's all!");
+          }}
           onSwipedLeft={() => {
             ToastAndroid.showWithGravityAndOffset(
-              'You dont like this dogo',
+              "You dont like this dogo",
               ToastAndroid.SHORT,
               ToastAndroid.CENTER,
               0,
@@ -29,7 +29,7 @@ const Swipe = ({ cards }) => {
           }}
           onSwipedRight={() => {
             ToastAndroid.showWithGravityAndOffset(
-              'You interest in this dogo',
+              "You interest in this dogo",
               ToastAndroid.SHORT,
               ToastAndroid.CENTER,
               0,
@@ -47,32 +47,32 @@ const Swipe = ({ cards }) => {
           animateOverlayLabelsOpacity
           overlayLabels={{
             left: {
-              title: 'NOPE',
+              title: "NOPE",
               element: <Overlay label="NOPE" color="#E5566D" />,
               style: {
-                wrapper: styles.overlayWrapper,
-              },
+                wrapper: styles.overlayWrapper
+              }
             },
             right: {
-              title: 'LIKE',
+              title: "LIKE",
               element: <Overlay label="LIKE" color="#4CCC93" />,
               style: {
                 wrapper: {
                   ...styles.overlayWrapper,
-                  alignItems: 'flex-start',
-                  marginLeft: 30,
-                },
-              },
-            },
+                  alignItems: "flex-start",
+                  marginLeft: 30
+                }
+              }
+            }
           }}
-          useViewOverflow={Platform.OS === 'ios'}
+          useViewOverflow={Platform.OS === "ios"}
         />
       </View>
       <View style={styles.buttonsContainer}>
         <IconButton
           name="close"
           onPress={() => {
-            alert('You clicked hate :(');
+            alert("You clicked hate :(");
           }}
           color="white"
           backgroundColor="#E5566D"
@@ -80,7 +80,7 @@ const Swipe = ({ cards }) => {
         <IconButton
           name="star"
           onPress={() => {
-            alert('You clicked star!');
+            alert("You clicked star!");
           }}
           color="white"
           backgroundColor="#3CA3FF"
@@ -88,7 +88,7 @@ const Swipe = ({ cards }) => {
         <IconButton
           name="heart"
           onPress={() => {
-            alert('You clicked Like! <3');
+            alert("You clicked Like! <3");
           }}
           color="white"
           backgroundColor="#4CCC93"
@@ -98,37 +98,37 @@ const Swipe = ({ cards }) => {
   );
 };
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: '#323232',
+    justifyContent: "space-between",
+    backgroundColor: "#323232"
   },
   swiperContainer: {
-    height: height - 250,
+    height: height - 250
   },
   buttonsContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: '15%',
-    paddingBottom: 5,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: "15%",
+    paddingBottom: 5
   },
   copyright: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 10,
-    color: 'black',
+    color: "black",
     paddingBottom: 20,
-    fontFamily: 'Avenir',
+    fontFamily: "Avenir"
   },
   overlayWrapper: {
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-end",
+    justifyContent: "flex-start",
     marginTop: 30,
-    marginLeft: -30,
-  },
+    marginLeft: -30
+  }
 });
 
 export default Swipe;
