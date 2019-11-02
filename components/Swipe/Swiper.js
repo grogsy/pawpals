@@ -42,8 +42,8 @@ const Swipe = ({ cards }) => {
           cardIndex={0}
           backgroundColor="white"
           stackSize={2}
-          infinite
-          //showSecondCard
+          infinite={false}
+          showSecondCard={true}
           animateOverlayLabelsOpacity
           overlayLabels={{
             left: {

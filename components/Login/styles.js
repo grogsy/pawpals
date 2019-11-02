@@ -5,7 +5,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: "gray",
+    backgroundColor: "#323232"
   },
 
   inputField: {

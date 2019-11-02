@@ -28,7 +28,7 @@ export default class SwipePage extends React.Component {
     return this.state.loading ? (
       <LoadingScreen />
     ) : (
-      <Swiper cards={this.state.dogs} />
+      <Swiper cards={this.state.dogs} addLikedDog={this.addLikedDog} />
     );
   }
 }

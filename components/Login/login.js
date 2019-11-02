@@ -39,7 +39,7 @@ export default class LoginScreen extends React.Component {
             if (password !== user.password) {
               this.setState({ invalidCred: true });
             } else {
-              this.props.navigation.navigate("Profile", {
+              this.props.navigation.navigate("All", {
                 user
               });
             }
@@ -51,7 +51,14 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={container} behavior="padding">
-        <Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: 50 }}>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: "bold",
+            marginBottom: 50,
+            fontFamily: "sans-serif-light"
+          }}
+        >
           Sign In
         </Text>
         <View style={formField}>
