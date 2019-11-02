@@ -10,29 +10,24 @@ const { header, text } = styles;
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    // stub data
     this.state = { user: {} };
   }
 
   componentDidMount() {
-    console.log("component is mounting");
     let user = this.props.navigation.getParam("user");
-    console.log("props users:", user);
     if (!user) {
       // stub user to avoid error
       db.ref("/users")
         .child("Brian")
         .once("value", snapshot => {
           user = snapshot.val();
-          this.setState({ user: user });
+          this.setState({ user });
         });
     }
   }
 
   render() {
-    console.log("this.state.user", this.state.user);
     const { user } = this.state;
-    console.log("User in render:", user);
     return (
       <View
         style={{

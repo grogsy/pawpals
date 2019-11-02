@@ -21,6 +21,17 @@ import {
   SwipePage
 } from "./components";
 
+const ProfileStack = createStackNavigator({
+  Profile: {
+    screen: Profile,
+    navigationOptions: () => ({
+      tabBarIcon: () => <AntIcon name="user" size={20} />
+    })
+  },
+
+  EditProfile: { screen: EditProfile }
+});
+
 const TabNavigator = createBottomTabNavigator(
   {
     All: {
@@ -35,12 +46,7 @@ const TabNavigator = createBottomTabNavigator(
         tabBarIcon: () => <AntIcon name="mail" size={20} />
       })
     },
-    Profile: {
-      screen: Profile,
-      navigationOptions: () => ({
-        tabBarIcon: () => <AntIcon name="user" size={20} />
-      })
-    },
+    Profile: ProfileStack,
     Swipe: {
       screen: SwipePage,
       navigationOptions: {
@@ -79,8 +85,7 @@ const AuthStack = createStackNavigator(
 
 const RootStack = createSwitchNavigator({
   Auth: { screen: AuthStack },
-  App: TabNavigator,
-  EditProfile: { screen: EditProfile }
+  App: TabNavigator
 });
 
 const AppContainer = createAppContainer(RootStack);
