@@ -5,7 +5,8 @@ import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import Icon from "react-native-vector-icons/AntDesign";
+import AntIcon from "react-native-vector-icons/AntDesign";
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { FirebaseWrapper } from "./firebase/firebase";
 import { firebaseConfig } from "./firebase/config";
@@ -22,17 +23,30 @@ import {
 
 const TabNavigator = createBottomTabNavigator(
   {
-    All: { screen: Feed },
+    All: {
+      screen: Feed,
+      navigationOptions: () => ({
+        tabBarIcon: () => <AntIcon name="team" size={20} />
+      })
+    },
     Inbox: {
       screen: Inbox,
       navigationOptions: () => ({
-        tabBarIcon: () => <Icon name="mail" size={20} />
+        tabBarIcon: () => <AntIcon name="mail" size={20} />
       })
     },
-    Profile: { screen: Profile },
+    Profile: {
+      screen: Profile,
+      navigationOptions: () => ({
+        tabBarIcon: () => <AntIcon name="user" size={20} />
+      })
+    },
     Swipe: {
       screen: SwipePage,
-      navigationOptions: { tabBarLabel: "Find Dogs" }
+      navigationOptions: {
+        tabBarLabel: "Find Dogs",
+        tabBarIcon: () => <MaterialIcon name="dog" size={20} />
+      }
     }
   },
   {
