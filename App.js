@@ -8,9 +8,6 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { FirebaseWrapper } from "./firebase/firebase";
-import { firebaseConfig } from "./firebase/config";
-
 import {
   LoginScreen,
   Feed,
@@ -71,10 +68,7 @@ const TabNavigator = createBottomTabNavigator(
 const AuthStack = createStackNavigator(
   {
     Login: { screen: LoginScreen },
-    Register: { screen: Register },
-    Tabs: {
-      screen: TabNavigator
-    }
+    Register: { screen: Register }
   },
   {
     initialRouteName: "Login",
@@ -94,7 +88,3 @@ export default class App extends React.Component {
     return <AppContainer />;
   }
 }
-// export default function App(props) {
-//   FirebaseWrapper.GetInstance().Initialize(firebaseConfig);
-//   return <AppContainer />
-// }
