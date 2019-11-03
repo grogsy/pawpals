@@ -61,6 +61,9 @@ const TabNavigator = createBottomTabNavigator(
         fontSize: 12,
         paddingBottom: 5
       }
+    },
+    navigationOptions: {
+      initialRouteName: "All"
     }
   }
 );
