@@ -6,97 +6,108 @@ import IconButton from "./CardButton";
 import Overlay from "./Overlay";
 import { Platform } from "@unimodules/core";
 
-const Swipe = ({ cards }) => {
-  const useSwiper = useRef(null).current;
-  return (
-    <View style={styles.container}>
-      <View style={styles.swiperContainer}>
-        <Swiper
-          ref={useSwiper}
-          animateCardOpcaity={true}
-          verticalSwipe={false}
-          onSwipedAll={() => {
-            alert("Guess that's all!");
-          }}
-          onSwipedLeft={() => {
-            ToastAndroid.showWithGravityAndOffset(
-              "You dont like this dogo",
-              ToastAndroid.SHORT,
-              ToastAndroid.CENTER,
-              0,
-              350
-            );
-          }}
-          onSwipedRight={() => {
-            ToastAndroid.showWithGravityAndOffset(
-              "You interest in this dogo",
-              ToastAndroid.SHORT,
-              ToastAndroid.CENTER,
-              0,
-              350
-            );
-          }}
-          containerStyle={styles.container}
-          cards={cards}
-          renderCard={card => <Card card={card} />}
-          cardIndex={0}
-          backgroundColor="white"
-          stackSize={2}
-          infinite={false}
-          showSecondCard={true}
-          animateOverlayLabelsOpacity
-          overlayLabels={{
-            left: {
-              title: "NOPE",
-              element: <Overlay label="NOPE" color="#E5566D" />,
-              style: {
-                wrapper: styles.overlayWrapper
-              }
-            },
-            right: {
-              title: "LIKE",
-              element: <Overlay label="LIKE" color="#4CCC93" />,
-              style: {
-                wrapper: {
-                  ...styles.overlayWrapper,
-                  alignItems: "flex-start",
-                  marginLeft: 30
+export default class Swipe extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: [...props.cards]
+    };
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.swiperContainer}>
+          <Swiper
+            ref={swiper => (this.swiper = swiper)}
+            animateCardOpcaity={true}
+            verticalSwipe={false}
+            onSwipedAll={() => {
+              alert("Guess that's all!");
+            }}
+            onSwipedLeft={() => {
+              ToastAndroid.showWithGravityAndOffset(
+                "You dont like this dogo",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                0,
+                350
+              );
+            }}
+            onSwipedRight={() => {
+              ToastAndroid.showWithGravityAndOffset(
+                "You interest in this dogo",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                0,
+                350
+              );
+            }}
+            containerStyle={styles.container}
+            cards={this.state.cards}
+            renderCard={card => <Card card={card} />}
+            cardIndex={0}
+            backgroundColor="white"
+            stackSize={2}
+            infinite={false}
+            showSecondCard={true}
+            animateOverlayLabelsOpacity
+            overlayLabels={{
+              left: {
+                title: "NOPE",
+                element: <Overlay label="NOPE" color="#E5566D" />,
+                style: {
+                  wrapper: styles.overlayWrapper
+                }
+              },
+              right: {
+                title: "LIKE",
+                element: <Overlay label="LIKE" color="#4CCC93" />,
+                style: {
+                  wrapper: {
+                    ...styles.overlayWrapper,
+                    alignItems: "flex-start",
+                    marginLeft: 30
+                  }
                 }
               }
-            }
-          }}
-          useViewOverflow={Platform.OS === "ios"}
-        />
+            }}
+            useViewOverflow={Platform.OS === "ios"}
+          />
+        </View>
+        <View style={styles.buttonsContainer}>
+          <IconButton
+            name="close"
+            onPress={() => {
+              alert("You clicked hate :(");
+              this.swiper.swipeLeft();
+            }}
+            color="white"
+            backgroundColor="#E5566D"
+          />
+          <IconButton
+            name="star"
+            onPress={() => {
+              alert("You clicked star!");
+              this.swiper.swipeRight();
+            }}
+            color="white"
+            backgroundColor="#3CA3FF"
+          />
+          <IconButton
+            name="heart"
+            onPress={() => {
+              alert("You clicked Like! <3");
+              this.swiper.swipeRight();
+            }}
+            color="white"
+            backgroundColor="#4CCC93"
+          />
+        </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <IconButton
-          name="close"
-          onPress={() => {
-            alert("You clicked hate :(");
-          }}
-          color="white"
-          backgroundColor="#E5566D"
-        />
-        <IconButton
-          name="star"
-          onPress={() => {
-            alert("You clicked star!");
-          }}
-          color="white"
-          backgroundColor="#3CA3FF"
-        />
-        <IconButton
-          name="heart"
-          onPress={() => {
-            alert("You clicked Like! <3");
-          }}
-          color="white"
-          backgroundColor="#4CCC93"
-        />
-      </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const { height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -130,5 +141,3 @@ const styles = StyleSheet.create({
     marginLeft: -30
   }
 });
-
-export default Swipe;
