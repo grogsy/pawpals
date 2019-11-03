@@ -1,6 +1,6 @@
 Stackathon Project 
 
-small proof-o-concept:
+small proof-o-concept(Animated Gifs coming soon to a README.md near you):
 
 
 

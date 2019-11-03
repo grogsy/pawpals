@@ -30,7 +30,7 @@ const ConvoHeader = ({ from, message, time, img, goToConvo }) => {
           <Icon name="user" size={20} />
         </View>
         <View style={[styles.convoMessage, styles.convoBoxAdjust]}>
-          <Text>{from}</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>{from}</Text>
           <Text>{message}</Text>
         </View>
         <View style={[styles.convoTime, styles.convoBoxAdjust]}>
