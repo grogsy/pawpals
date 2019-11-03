@@ -22,13 +22,7 @@ import {
 } from "./components";
 
 const ProfileStack = createStackNavigator({
-  Profile: {
-    screen: Profile,
-    navigationOptions: () => ({
-      tabBarIcon: () => <AntIcon name="user" size={20} />
-    })
-  },
-
+  Profile: { screen: Profile },
   EditProfile: { screen: EditProfile }
 });
 
@@ -46,7 +40,12 @@ const TabNavigator = createBottomTabNavigator(
         tabBarIcon: () => <AntIcon name="mail" size={20} />
       })
     },
-    Profile: ProfileStack,
+    Profile: {
+      screen: ProfileStack,
+      navigationOptions: () => ({
+        tabBarIcon: () => <AntIcon name="user" size={20} />
+      })
+    },
     Swipe: {
       screen: SwipePage,
       navigationOptions: {
