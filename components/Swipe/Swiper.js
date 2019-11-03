@@ -10,8 +10,16 @@ export default class Swipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [...props.cards]
+      cards: [...props.cards],
+      liked: []
     };
+
+    this.likedDog = this.likedDog.bind(this);
+  }
+
+  likedDog(dog) {
+    this.setState({ liked: [...this.state.liked, dog] });
+    console.log(this.state.liked);
   }
 
   render() {
@@ -25,7 +33,7 @@ export default class Swipe extends React.Component {
             onSwipedAll={() => {
               alert("Guess that's all!");
             }}
-            onSwipedLeft={() => {
+            onSwipedLeft={index => {
               ToastAndroid.showWithGravityAndOffset(
                 "You dont like this dogo",
                 ToastAndroid.SHORT,
@@ -34,7 +42,7 @@ export default class Swipe extends React.Component {
                 350
               );
             }}
-            onSwipedRight={() => {
+            onSwipedRight={index => {
               ToastAndroid.showWithGravityAndOffset(
                 "You interest in this dogo",
                 ToastAndroid.SHORT,
@@ -42,6 +50,8 @@ export default class Swipe extends React.Component {
                 0,
                 350
               );
+              console.log(index);
+              this.likedDog(this.state.cards[index]);
             }}
             containerStyle={styles.container}
             cards={this.state.cards}

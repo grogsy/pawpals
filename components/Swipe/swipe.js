@@ -7,12 +7,7 @@ import Swiper from "./Swiper";
 export default class SwipePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { dogs: [], loading: true, liked: [] };
-    this.addLikedDog = this.addLikedDog.bind(this);
-  }
-
-  addLikedDog(dog) {
-    this.setState({ liked: [...this.state.liked, dog] });
+    this.state = { dogs: [], loading: true };
   }
 
   componentDidMount() {
