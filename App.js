@@ -15,13 +15,30 @@ import {
   Profile,
   Register,
   EditProfile,
-  SwipePage
+  SwipePage,
+  Convo
 } from "./components";
 
 const ProfileStack = createStackNavigator({
   Profile: { screen: Profile },
   EditProfile: { screen: EditProfile }
 });
+
+const InboxStack = createStackNavigator({
+  Inbox: { screen: Inbox },
+  Convo: { screen: Convo }
+});
+
+const AuthStack = createStackNavigator(
+  {
+    Login: { screen: LoginScreen },
+    Register: { screen: Register }
+  },
+  {
+    initialRouteName: "Login",
+    headerMode: "none"
+  }
+);
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -32,7 +49,7 @@ const TabNavigator = createBottomTabNavigator(
       })
     },
     Inbox: {
-      screen: Inbox,
+      screen: InboxStack,
       navigationOptions: () => ({
         tabBarIcon: () => <AntIcon name="mail" size={20} />
       })
@@ -65,17 +82,6 @@ const TabNavigator = createBottomTabNavigator(
     navigationOptions: {
       initialRouteName: "All"
     }
-  }
-);
-
-const AuthStack = createStackNavigator(
-  {
-    Login: { screen: LoginScreen },
-    Register: { screen: Register }
-  },
-  {
-    initialRouteName: "Login",
-    headerMode: "none"
   }
 );
 

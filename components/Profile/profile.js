@@ -8,6 +8,14 @@ import styles from "./styles";
 const { header, text } = styles;
 
 class Profile extends React.Component {
+  static navigationOptions = {
+    title: "User Profile",
+    headerTitleStyle: {
+      textAlign: "center",
+      flex: 1
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = { user: {} };

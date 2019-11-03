@@ -21,18 +21,35 @@ const data = [
   {
     key: 3,
     from: "Baz",
-    message: "Super very long message I put into here",
+    message: "Super very long message I put into here for a very long reading",
     time: new Date()
   },
   {
     key: 4,
     from: "Baazaaar",
-    message: "Super very long message I put into here",
+    message: "Super very long message I put into here for a very long reading",
     time: new Date()
   }
 ];
 
 export default class Inbox extends React.Component {
+  static navigationOptions = {
+    title: "Messages",
+    headerTitleStyle: {
+      textAlign: "center",
+      flex: 1
+    }
+  };
+
+  constructor(props) {
+    super(props);
+    this.navigateToConvo = this.navigateToConvo.bind(this);
+  }
+
+  navigateToConvo(user) {
+    this.props.navigation.navigate("Convo", { user });
+  }
+
   render() {
     return (
       <ScrollView>
@@ -49,6 +66,7 @@ export default class Inbox extends React.Component {
                     message={message}
                     time={"1:00 PM"}
                     img={DEFAULT_PIC}
+                    goToConvo={() => this.navigateToConvo(from)}
                   />
                 );
               }}

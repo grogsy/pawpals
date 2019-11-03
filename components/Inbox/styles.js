@@ -18,24 +18,27 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5
   },
-  convoNameAndImg: {
+  convoUserImg: {
     flex: 1,
     flexDirection: "row",
     borderColor: "gray",
     borderWidth: 1,
-    justifyContent: "space-evenly"
+    justifyContent: "center",
+    alignItems: "center"
   },
   convoMessage: {
     flex: 4,
-    flexDirection: "row",
-    justifyContent: "center"
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   },
   convoTime: {
     flex: 1,
     flexDirection: "row",
     borderWidth: 0.5,
     borderColor: "green",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   convoBoxAdjust: {
     paddingTop: 5

@@ -10,19 +10,27 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "./styles";
 
-const ConvoHeader = ({ from, message, time, img }) => {
+const ConvoHeader = ({ from, message, time, img, goToConvo }) => {
+  if (message.length > 35) {
+    message = message.slice(0, 35) + "...";
+  }
   return (
-    <TouchableOpacity onPress={() => alert("You pressed on a convo!")}>
+    <TouchableOpacity
+      onPress={() => {
+        alert("You pressed on a convo!");
+        goToConvo();
+      }}
+    >
       <View style={styles.convoHeader}>
-        <View style={[styles.convoNameAndImg, styles.convoBoxAdjust]}>
+        <View style={styles.convoUserImg}>
           {/* <Image
             source={{ uri: img }}
             style={{ width: 20, height: 20, borderRadius: 10 }}
           /> */}
           <Icon name="user" size={20} />
-          <Text>{from}</Text>
         </View>
         <View style={[styles.convoMessage, styles.convoBoxAdjust]}>
+          <Text>{from}</Text>
           <Text>{message}</Text>
         </View>
         <View style={[styles.convoTime, styles.convoBoxAdjust]}>
