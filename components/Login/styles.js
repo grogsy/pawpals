@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     width: 200,
-    paddingLeft: 10
+    paddingLeft: 10,
+    backgroundColor: "white"
   },
 
   formField: {
