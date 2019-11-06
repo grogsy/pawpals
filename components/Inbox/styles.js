@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: "gray",
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    padding: 5
   },
   convoUserImg: {
     flex: 1,

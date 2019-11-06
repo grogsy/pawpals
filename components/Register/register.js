@@ -68,9 +68,7 @@ export default class RegistrationForm extends React.Component {
               ...newUser
             });
 
-            this.props.navigation.navigate("Profile", {
-              user: newUser
-            });
+            this.props.navigation.navigate("Login");
           }
         });
     }

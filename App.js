@@ -19,6 +19,8 @@ import {
   Convo
 } from "./components";
 
+import ProviderStack from "./NavigationStacks/Provider";
+
 const ProfileStack = createStackNavigator({
   Profile: { screen: Profile },
   EditProfile: { screen: EditProfile }
@@ -87,7 +89,8 @@ const TabNavigator = createBottomTabNavigator(
 
 const RootStack = createSwitchNavigator({
   Auth: { screen: AuthStack },
-  App: TabNavigator
+  App: TabNavigator,
+  ProviderApp: ProviderStack
 });
 
 const AppContainer = createAppContainer(RootStack);
