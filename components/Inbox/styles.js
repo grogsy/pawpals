@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
   convoHeader: {
     flexDirection: "row",
     flex: 1,
-    borderWidth: 1,
-    borderColor: "black",
+    borderBottomWidth: 0.5,
+    borderColor: "gray",
     marginTop: 5,
     marginBottom: 5
   },

@@ -39,7 +39,7 @@ export default class LoginScreen extends React.Component {
             if (password !== user.password) {
               this.setState({ invalidCred: true });
             } else {
-              this.props.navigation.navigate("All", {
+              this.props.navigation.navigate("App", {
                 user
               });
             }

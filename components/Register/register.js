@@ -108,7 +108,10 @@ export default class RegistrationForm extends React.Component {
           <Picker
             selectedValue={this.state.usertype}
             style={{ height: 50, width: 210 }}
-            onValueChange={(usertype, index) => this.setState({ usertype })}
+            onValueChange={(usertype, index) => {
+              console.log(usertype);
+              this.setState({ usertype });
+            }}
           >
             <Picker.Item label="Looking To Adopt A Dog" value="adopter" />
             <Picker.Item label="Putting Up An Adoption" value="provider" />
