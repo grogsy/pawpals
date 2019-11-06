@@ -67,9 +67,11 @@ export default class LoginScreen extends React.Component {
             } else {
               loginUser(user);
               if (user.usertype === "adopter") {
-                this.props.navigation.navigate("App");
+                this.props.navigation.navigate("AdopterScreen");
               } else if (user.usertype === "provider") {
-                this.props.navigation.navigate("ProviderApp");
+                this.props.navigation.navigate("ProviderScreen");
+              } else {
+                console.error("God Damn It You Broke My App Somehow");
               }
             }
           }

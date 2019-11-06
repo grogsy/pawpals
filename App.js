@@ -3,94 +3,16 @@
 import React from "react";
 
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-import AntIcon from "react-native-vector-icons/AntDesign";
-import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
-import {
-  LoginScreen,
-  Feed,
-  Inbox,
-  Profile,
-  Register,
-  EditProfile,
-  SwipePage,
-  Convo
-} from "./components";
 
 import ProviderStack from "./NavigationStacks/Provider";
+import AuthStack from "./NavigationStacks/Auth";
+import AdopterStack from "./NavigationStacks/Adopter";
 
-const ProfileStack = createStackNavigator({
-  Profile: { screen: Profile },
-  EditProfile: { screen: EditProfile }
-});
-
-const InboxStack = createStackNavigator({
-  Inbox: { screen: Inbox },
-  Convo: { screen: Convo }
-});
-
-const AuthStack = createStackNavigator(
-  {
-    Login: { screen: LoginScreen },
-    Register: { screen: Register }
-  },
-  {
-    initialRouteName: "Login",
-    headerMode: "none"
-  }
-);
-
-const TabNavigator = createBottomTabNavigator(
-  {
-    All: {
-      screen: Feed,
-      navigationOptions: () => ({
-        tabBarIcon: () => <AntIcon name="team" size={20} />
-      })
-    },
-    Inbox: {
-      screen: InboxStack,
-      navigationOptions: () => ({
-        tabBarIcon: () => <AntIcon name="mail" size={20} />
-      })
-    },
-    Profile: {
-      screen: ProfileStack,
-      navigationOptions: () => ({
-        tabBarIcon: () => <AntIcon name="user" size={20} />
-      })
-    },
-    Swipe: {
-      screen: SwipePage,
-      navigationOptions: {
-        tabBarLabel: "Find Dogs",
-        tabBarIcon: () => <MaterialIcon name="dog" size={20} />
-      }
-    }
-  },
-  {
-    tabBarOptions: {
-      activeBackgroundColor: "#32ffff",
-      backgroundColor: "green",
-      activeTintColor: "#324532",
-      inactiveTintColor: "gray",
-      labelStyle: {
-        fontSize: 12,
-        paddingBottom: 5
-      }
-    },
-    navigationOptions: {
-      initialRouteName: "All"
-    }
-  }
-);
-
+// Main App
 const RootStack = createSwitchNavigator({
   Auth: { screen: AuthStack },
-  App: TabNavigator,
-  ProviderApp: ProviderStack
+  AdopterScreen: AdopterStack,
+  ProviderScreen: ProviderStack
 });
 
 const AppContainer = createAppContainer(RootStack);

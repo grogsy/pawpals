@@ -36,10 +36,21 @@ class Profile extends React.Component {
     super(props);
     this.state = { user: {} };
     this.updateProfileInfo = this.updateProfileInfo.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   updateProfileInfo(user) {
     this.setState({ user });
+  }
+
+  async logout() {
+    try {
+      console.log("I run");
+      await AsyncStorage.setItem("currentUser", null);
+      this.props.navigation.navigate("Login");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async componentDidMount() {
@@ -50,16 +61,6 @@ class Profile extends React.Component {
         user = snapshot.val();
         this.setState({ user });
       });
-
-    // if (!currentUser) {
-    //   // stub user to avoid error
-    //   db.ref("/users")
-    //     .child("Brian")
-    //     .once("value", snapshot => {
-    //       user = snapshot.val();
-    //       this.setState({ user });
-    //     });
-    // }
   }
 
   render() {
@@ -79,22 +80,38 @@ class Profile extends React.Component {
             flex: 2
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              alert("You poke my face :O");
+          <View
+            style={{
+              flexDirection: "column",
+              marginTop: 15,
+              marginLeft: 10
             }}
           >
-            <Image
-              source={{ uri: user.imgurl }}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                marginLeft: 10,
-                marginTop: 15
+            <TouchableOpacity
+              onPress={() => {
+                alert("You poke my face :O");
               }}
-            />
-          </TouchableOpacity>
+            >
+              <Image
+                source={{ uri: user.imgurl }}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 50,
+                  borderWidth: 0.5,
+                  borderColor: "gray"
+                }}
+              />
+            </TouchableOpacity>
+            <View style={{ marginTop: 10 }}>
+              <Button
+                title="Sign Out"
+                onPress={async () => {
+                  await this.logout();
+                }}
+              />
+            </View>
+          </View>
           <View
             style={{
               flexDirection: "row",
