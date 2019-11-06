@@ -46,8 +46,10 @@ class Profile extends React.Component {
   async logout() {
     try {
       console.log("I run");
-      await AsyncStorage.setItem("currentUser", null);
-      this.props.navigation.navigate("Login");
+      await AsyncStorage.clear();
+      // As it turns out, I can navigate to a different NavStack
+      // without it being apart of this stack(ProfileStack)
+      this.props.navigation.navigate("Auth");
     } catch (error) {
       console.error(error);
     }
@@ -104,12 +106,7 @@ class Profile extends React.Component {
               />
             </TouchableOpacity>
             <View style={{ marginTop: 10 }}>
-              <Button
-                title="Sign Out"
-                onPress={async () => {
-                  await this.logout();
-                }}
-              />
+              <Button title="Sign Out" onPress={this.logout} />
             </View>
           </View>
           <View
@@ -181,4 +178,4 @@ class Profile extends React.Component {
   }
 }
 
-export default withNavigation(Profile);
+export default Profile;
