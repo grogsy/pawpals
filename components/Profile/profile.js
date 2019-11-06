@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, View, Button, Image, AsyncStorage } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  Image,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import { withNavigation } from "react-navigation";
 import { db } from "../../firebase/config";
 
@@ -28,12 +35,14 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: {} };
+    this.updateProfileInfo = this.updateProfileInfo.bind(this);
   }
 
-  // clueless as to why cDM here needs to be async yet
-  // yet logIn
+  updateProfileInfo(user) {
+    this.setState({ user });
+  }
+
   async componentDidMount() {
-    //let user = this.props.navigation.getParam("user");
     let currentUser = await getUser();
     db.ref("/users")
       .child(currentUser)
@@ -67,14 +76,25 @@ class Profile extends React.Component {
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            marginTop: 20,
             flex: 2
           }}
         >
-          <Image
-            source={{ uri: user.imgurl }}
-            style={{ width: 100, height: 100 }}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              alert("You poke my face :O");
+            }}
+          >
+            <Image
+              source={{ uri: user.imgurl }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                marginLeft: 10,
+                marginTop: 15
+              }}
+            />
+          </TouchableOpacity>
           <View
             style={{
               flexDirection: "row",
@@ -134,7 +154,8 @@ class Profile extends React.Component {
           title="Edit Your Profile"
           onPress={() =>
             this.props.navigation.navigate("EditProfile", {
-              user
+              user,
+              updateProfileInfo: this.updateProfileInfo
             })
           }
         />

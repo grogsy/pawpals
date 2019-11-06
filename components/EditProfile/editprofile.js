@@ -83,7 +83,7 @@ export default class EditProfile extends React.Component {
             />
             <Text style={header}>Bio</Text>
             <TextInput
-              style={[inputField, { height: 200 }]}
+              style={[inputField, { height: 200, textAlignVertical: "top" }]}
               multiline={true}
               onChangeText={bio => this.setState({ bio })}
               value={this.getFieldValue("bio")}
