@@ -1,5 +1,18 @@
 import React from "react";
-import { Text, View, Button, KeyboardAvoidingView } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  KeyboardAvoidingView,
+  AsyncStorage
+} from "react-native";
+
+// YES AsyncStorage IS DEPRECATED BUT FOR TESTING PURPOSES, THIS DEMONSTRATES
+// USER DATA FLOW, LETTUCE TRY THIS OUT IN THE MEAN TIME WHILE PONDERING
+// LONG-TERM SOLUTIONS LIKE REDUX, FIREBASE STORE, OR MOBX!!!
+
+// no "react-native link" for expo-based projects it seems...
+// import AsyncStorage from "@react-native-community/async-storage";
 
 import { db } from "../../firebase/config";
 import InputField from "./inputfield";
@@ -7,6 +20,19 @@ import InputField from "./inputfield";
 import styles from "./styles";
 
 const { container, formField, description } = styles;
+
+/**
+ * Let's store a user's username as the naive global state representing
+ * a typical user session, before we delve into replacing it with more
+ * sophisticated state management solutions
+ */
+const loginUser = async user => {
+  try {
+    await AsyncStorage.setItem("currentUser", user.username);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -39,9 +65,12 @@ export default class LoginScreen extends React.Component {
             if (password !== user.password) {
               this.setState({ invalidCred: true });
             } else {
-              this.props.navigation.navigate("App", {
-                user
-              });
+              loginUser(user);
+              if (user.usertype === "adopter") {
+                this.props.navigation.navigate("App", {
+                  user
+                });
+              }
             }
           }
         });

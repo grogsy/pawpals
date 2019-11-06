@@ -1,11 +1,20 @@
 import React from "react";
-import { Text, View, Button, Image } from "react-native";
+import { Text, View, Button, Image, AsyncStorage } from "react-native";
 import { withNavigation } from "react-navigation";
 import { db } from "../../firebase/config";
 
 import styles from "./styles";
 
 const { header, text } = styles;
+
+const getUser = async () => {
+  try {
+    const user = await AsyncStorage.getItem("currentUser");
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 class Profile extends React.Component {
   static navigationOptions = {
@@ -21,17 +30,27 @@ class Profile extends React.Component {
     this.state = { user: {} };
   }
 
-  componentDidMount() {
-    let user = this.props.navigation.getParam("user");
-    if (!user) {
-      // stub user to avoid error
-      db.ref("/users")
-        .child("Brian")
-        .once("value", snapshot => {
-          user = snapshot.val();
-          this.setState({ user });
-        });
-    }
+  // clueless as to why cDM here needs to be async yet
+  // yet logIn
+  async componentDidMount() {
+    //let user = this.props.navigation.getParam("user");
+    let currentUser = await getUser();
+    db.ref("/users")
+      .child(currentUser)
+      .once("value", snapshot => {
+        user = snapshot.val();
+        this.setState({ user });
+      });
+
+    // if (!currentUser) {
+    //   // stub user to avoid error
+    //   db.ref("/users")
+    //     .child("Brian")
+    //     .once("value", snapshot => {
+    //       user = snapshot.val();
+    //       this.setState({ user });
+    //     });
+    // }
   }
 
   render() {
