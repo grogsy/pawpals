@@ -39,13 +39,18 @@ class Profile extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  updateProfileInfo(user) {
-    this.setState({ user });
+  async componentDidMount() {
+    let currentUser = await getUser();
+    db.ref("/users")
+      .child(currentUser)
+      .once("value", snapshot => {
+        user = snapshot.val();
+        this.setState({ user });
+      });
   }
 
   async logout() {
     try {
-      console.log("I run");
       await AsyncStorage.clear();
       // As it turns out, I can navigate to a different NavStack
       // without it being apart of this stack(ProfileStack)
@@ -55,14 +60,8 @@ class Profile extends React.Component {
     }
   }
 
-  async componentDidMount() {
-    let currentUser = await getUser();
-    db.ref("/users")
-      .child(currentUser)
-      .once("value", snapshot => {
-        user = snapshot.val();
-        this.setState({ user });
-      });
+  updateProfileInfo(user) {
+    this.setState({ user });
   }
 
   render() {

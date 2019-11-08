@@ -42,7 +42,7 @@ export default class EditProfile extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding">
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
         <ScrollView>
           <View style={{ marginTop: 30, marginLeft: 30 }}>
             <Text style={header}>Display Picture</Text>
@@ -89,9 +89,10 @@ export default class EditProfile extends React.Component {
               value={this.getFieldValue("bio")}
             />
           </View>
-
-          <Button title="Save Your Changes" onPress={this.handleOnSubmit} />
         </ScrollView>
+        <View>
+          <Button title="Save Your Changes" onPress={this.handleOnSubmit} />
+        </View>
       </KeyboardAvoidingView>
     );
   }
